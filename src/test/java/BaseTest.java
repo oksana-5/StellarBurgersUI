@@ -29,15 +29,10 @@ public class BaseTest {
     public void startUp() {
         String browser = System.getProperty("browser", "chrome");
 
-        switch (browser) {
-            case "chrome":
-                startBrowserChrome();
-                break;
-            case "yandex":
-                startBrowserYandex();
-                break;
-            default:
-                throw new IllegalArgumentException("Неподдерживаемый браузер:" + browser);
+        if (browser.equals("chrome")) {
+            startBrowserChrome();
+        } else if (browser.equals("yandex")) {
+            startBrowserYandex();
         }
 
         mainPage = new MainPage(driver);
@@ -48,13 +43,13 @@ public class BaseTest {
     }
 
     private void startBrowserChrome() {
-        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
+        WebDriverManager.chromedriver().setup();
     }
 
     private void startBrowserYandex() {
-        System.setProperty("webdriver.chrome.driver", "C:/YandexDriver/yandexdriver.exe");
         driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "C:/YandexDriver/yandexdriver.exe");
     }
 
     @After
