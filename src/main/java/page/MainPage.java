@@ -4,6 +4,10 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class MainPage {
     private final WebDriver driver;
@@ -20,6 +24,8 @@ public class MainPage {
     private final By sauceSection = By.xpath(".//div[./span[text()='Соусы']]");
     // раздел Начинки
     private final By fillingSection = By.xpath(".//div[./span[text()='Начинки']]");
+    // класс выделенного раздела
+    private final String selectedSectionClass = "tab_tab_type_current__2BEPc";
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -73,6 +79,30 @@ public class MainPage {
     @Step("get filling section")
     public WebElement getFillingSection() {
         return driver.findElement(fillingSection);
+    }
+
+    @Step("wait until bun section is selected")
+    public void waitUntilBunSectionIsSelected() {
+        new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.attributeContains(bunSection, "class", selectedSectionClass));
+    }
+
+    @Step("check if bun section is selected")
+    public boolean isBunSectionSelected() {
+        String classAttribute = getBunSection().getAttribute("class");
+        return classAttribute != null && classAttribute.contains(selectedSectionClass);
+    }
+
+    @Step("check if sauce section is selected")
+    public boolean isSauceSectionSelected() {
+        String classAttribute = getSauceSection().getAttribute("class");
+        return classAttribute != null && classAttribute.contains(selectedSectionClass);
+    }
+
+    @Step("check if filling section is selected")
+    public boolean isFillingSectionSelected() {
+        String classAttribute = getFillingSection().getAttribute("class");
+        return classAttribute != null && classAttribute.contains(selectedSectionClass);
     }
 
 }
