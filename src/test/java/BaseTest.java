@@ -56,7 +56,6 @@ public class BaseTest {
     public void tearDown() {
         cleanupTestData();
         driver.quit();
-        driver.quit();
     }
 
     private void cleanupTestData() {
