@@ -1,4 +1,4 @@
-# Diplom_3
+# StellarBurgersUI
 ## Автотесты для приложения космической бургерной Stellar Burgers.
 
 ### Проверяется:
